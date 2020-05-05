@@ -57,62 +57,65 @@ namespace Task03
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
             int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
-            try
+            checked
             {
-                N = int.Parse(Console.ReadLine());
-
-                for (int i = 0; i < N; i++)
+                try
                 {
-                    var spl = Console.ReadLine().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    if (spl.Length < 3)
-                        throw new ArgumentException("Мало аргументов");
+                    N = int.Parse(Console.ReadLine());
 
-                    string name = spl[0];
+                    for (int i = 0; i < N; i++)
+                    {
+                        var spl = Console.ReadLine().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        if (spl.Length < 3)
+                            throw new ArgumentException("Мало аргументов");
 
-                    int year = int.Parse(spl[1]);
+                        string name = spl[0];
 
-                    int code = int.Parse(spl[2]);
-                    if (!Enum.IsDefined(typeof(Manufacturer), code))
-                        throw new ArgumentException("Некорркетный код");
-                    Manufacturer manufacturer = (Manufacturer)code;
+                        int year = int.Parse(spl[1]);
 
-                    computerInfoList.Add(new ComputerInfo(name, manufacturer, year));
+                        int code = int.Parse(spl[2]);
+                        if (!Enum.IsDefined(typeof(Manufacturer), code))
+                            throw new ArgumentException("Некорркетный код");
+                        Manufacturer manufacturer = (Manufacturer)code;
+
+                        computerInfoList.Add(new ComputerInfo(name, manufacturer, year));
+                    }
+
+                    // выполните сортировку одним выражением
+                    var computerInfoQuery = from computer in computerInfoList
+                                            orderby computer.Owner descending,
+                                            computer.ComputerManufacturer.ToString(),
+                                            computer.Year descending
+                                            select computer;
+
+                    PrintCollectionInOneLine(computerInfoQuery);
+
+                    Console.WriteLine();
+
+                    // выполните сортировку одним выражением
+                    var computerInfoMethods = computerInfoList
+                        .OrderByDescending(o => o.Owner)
+                        .ThenBy(o => o.ComputerManufacturer.ToString())
+                        .ThenByDescending(o => o.Year);
+
+                    PrintCollectionInOneLine(computerInfoMethods);
                 }
-
-                // выполните сортировку одним выражением
-                var computerInfoQuery = from computer in computerInfoList
-                                        orderby computer.Owner descending,
-                                        computer.ComputerManufacturer.ToString(),
-                                        computer.Year descending
-                                        select computer;
-
-                PrintCollectionInOneLine(computerInfoQuery);
-
-                Console.WriteLine();
-
-                // выполните сортировку одним выражением
-                var computerInfoMethods = computerInfoList
-                    .OrderByDescending(o => o.Owner)
-                    .ThenBy(o => o.ComputerManufacturer.ToString())
-                    .ThenByDescending(o => o.Year);
-
-                PrintCollectionInOneLine(computerInfoMethods);
-            }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("ArgumentException");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("FormatException");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("InvalidOperationException");
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("OverflowException");
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("ArgumentException");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("FormatException");
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("InvalidOperationException");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("OverflowException");
+                }
             }
         }
 
