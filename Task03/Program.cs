@@ -57,70 +57,66 @@ namespace Task03
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
             int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
-            checked
+
+            try
             {
-                try
+                N = int.Parse(Console.ReadLine());
+                if (N <= 0)
+                    throw new FormatException();
+                for (int i = 0; i < N; i++)
                 {
-                    N = int.Parse(Console.ReadLine());
+                    var spl = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (spl.Length < 3)
+                        throw new ArgumentException();
 
-                    for (int i = 0; i < N; i++)
-                    {
-                        var spl = Console.ReadLine().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                        if (spl.Length < 3)
-                            throw new ArgumentException("Мало аргументов");
+                    string name = spl[0];
+                    int year = int.Parse(spl[1]), code = int.Parse(spl[2]);
+                    if (!Enum.IsDefined(typeof(Manufacturer), code))
+                        throw new ArgumentException();
+                    Manufacturer manufacturer = (Manufacturer)code;
 
-                        string name = spl[0];
-
-                        int year = int.Parse(spl[1]);
-
-                        int code = int.Parse(spl[2]);
-                        if (!Enum.IsDefined(typeof(Manufacturer), code))
-                            throw new ArgumentException("Некорркетный код");
-                        Manufacturer manufacturer = (Manufacturer)code;
-
-                        computerInfoList.Add(new ComputerInfo(name, manufacturer, year));
-                    }
-
-                    // выполните сортировку одним выражением
-                    var computerInfoQuery = from computer in computerInfoList
-                                            orderby computer.Owner descending,
-                                            computer.ComputerManufacturer.ToString(),
-                                            computer.Year descending
-                                            select computer;
-
-                    PrintCollectionInOneLine(computerInfoQuery);
-
-                    Console.WriteLine();
-
-                    // выполните сортировку одним выражением
-                    var computerInfoMethods = computerInfoList
-                        .OrderByDescending(o => o.Owner)
-                        .ThenBy(o => o.ComputerManufacturer.ToString())
-                        .ThenByDescending(o => o.Year);
-
-                    PrintCollectionInOneLine(computerInfoMethods);
+                    computerInfoList.Add(new ComputerInfo(name, manufacturer, year));
                 }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("ArgumentException");
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("FormatException");
-                }
-                catch (InvalidOperationException)
-                {
-                    Console.WriteLine("InvalidOperationException");
-                }
-                catch (OverflowException)
-                {
-                    Console.WriteLine("OverflowException");
-                }
+
+                // выполните сортировку одним выражением
+                var computerInfoQuery = from computer in computerInfoList
+                                        orderby computer.Owner descending,
+                                        computer.ComputerManufacturer.ToString(),
+                                        computer.Year descending
+                                        select computer;
+
+                PrintCollectionInOneLine(computerInfoQuery);
+
+                Console.WriteLine();
+
+                // выполните сортировку одним выражением
+                var computerInfoMethods = computerInfoList
+                    .OrderByDescending(o => o.Owner)
+                    .ThenBy(o => o.ComputerManufacturer.ToString())
+                    .ThenByDescending(o => o.Year);
+
+                PrintCollectionInOneLine(computerInfoMethods);
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("ArgumentException");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
             }
         }
 
         // выведите элементы коллекции на экран с помощью кода, состоящего из одной линии (должна быть одна точка с запятой)
-        public static void PrintCollectionInOneLine(IEnumerable<ComputerInfo> collection) 
+        public static void PrintCollectionInOneLine(IEnumerable<ComputerInfo> collection)
             => collection.Select(t => $"{t}")
                 .ToList()
                 .ForEach(Console.WriteLine);
