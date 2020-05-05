@@ -48,7 +48,7 @@ namespace Task02
 
                 bool isZero = true;
 
-                var filteredCollection = arr.Select(x => Math.Pow(x, 2)).Where(x => { if (!isZero) return isZero; isZero = x != 0; return isZero; }).ToArray();
+                double[] filteredCollection = arr.Select(x => Math.Pow(x, 2)).Where(x => { if (!isZero) return isZero; isZero = x != 0; return isZero; }).ToArray();
 
 
                 // использовать статическую форму вызова метода подсчета среднего
