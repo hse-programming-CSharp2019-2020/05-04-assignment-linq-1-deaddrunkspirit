@@ -46,8 +46,6 @@ namespace Task02
                 arr = Console.ReadLine().Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
-                bool isZero = true;
-
                 var filteredCollection = arr.Select(x => Math.Pow(x, 2)).TakeWhile(x => x != 0).ToArray();
 
 
@@ -58,7 +56,8 @@ namespace Task02
                 Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
 
                 // вывести элементы коллекции в одну строку
-                arr.Select(x => (x).ToString()).Aggregate((x, y) => { Console.Write($"{x} {y}"); return x + " " + y; }).TakeWhile(x => x != 0);
+                Console.WriteLine(arr.Select(x => x.ToString()).TakeWhile(x => x != "0").Aggregate((x, y) =>  x + " " + y));
+                Console.ReadLine();
 
             }
             catch (ArgumentNullException)
