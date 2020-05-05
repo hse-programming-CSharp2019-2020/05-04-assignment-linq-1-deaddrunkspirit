@@ -29,9 +29,9 @@ using System.Linq;
  */
 namespace Task02
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             RunTesk02();
         }
@@ -42,26 +42,28 @@ namespace Task02
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
-            }
-            
-            
-            var filteredCollection = arr.
-           
-            try
-            {
-                
+                arr = Console.ReadLine().Split(new char[] { ' ' },
+                    StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
+
+
+                var filteredCollection = arr.
+
+
                 // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm = 
+                double averageUsingStaticForm =
                 // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm = 
+                double averageUsingInstanceForm =
 
 
                 // вывести элементы коллекции в одну строку
                 filteredCollection.
             }
-          
+            catch
+            {
+
+            }
+
         }
-        
+
     }
 }

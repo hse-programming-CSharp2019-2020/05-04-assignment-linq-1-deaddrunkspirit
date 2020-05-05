@@ -32,9 +32,9 @@ using System.Threading.Tasks;
 
 namespace Task01
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             RunTesk01();
         }
@@ -45,19 +45,54 @@ namespace Task01
             try
             {
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = 
-            }
-            
-            // использовать синтаксис запросов!
-            IEnumerable<int> arrQuery = from 
+                arr = Console.ReadLine().Split(new char[] { ' ' },
+                    StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
-            // использовать синтаксис методов!
-            IEnumerable<int> arrMethod = arr.
+                if (arr is null)
+                    throw new InvalidOperationException();
 
-            try
-            {
+                // использовать синтаксис запросов!
+                IEnumerable<int> arrQuery = from number in arr
+                                            where number < 0 || number % 2 == 0
+                                            select number;
+
+                if (arrQuery is null)
+                    throw new InvalidOperationException();
+
+                // использовать синтаксис методов!
+                IEnumerable<int> arrMethod = arr.Where(x => x < 0 | x % 2 == 0);
+
+                if (arrMethod is null)
+                    throw new InvalidOperationException();
+
                 PrintEnumerableCollection<int>(arrQuery, ":");
                 PrintEnumerableCollection<int>(arrMethod, "*");
+                Console.ReadLine();
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("ArgumentOutOfRangeException");
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("ArgumentNullException");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
             }
         }
 
@@ -65,8 +100,7 @@ namespace Task01
         // P.S. Есть два способа, оставьте тот, в котором применяется LINQ...
         public static void PrintEnumerableCollection<T>(IEnumerable<T> collection, string separator)
         {
-           
-           
+            Console.WriteLine(collection.Select(x => x.ToString()).Aggregate((x, y) => x + separator + y));
         }
     }
 }
