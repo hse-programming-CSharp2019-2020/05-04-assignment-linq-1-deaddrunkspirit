@@ -33,6 +33,7 @@ namespace Task02
     {
         public static void Main()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
             RunTesk02();
         }
 
