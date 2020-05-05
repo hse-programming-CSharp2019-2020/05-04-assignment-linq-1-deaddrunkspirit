@@ -31,9 +31,9 @@ using System.Linq;
 
 namespace Task04
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
             RunTesk04();
         }
@@ -46,7 +46,6 @@ namespace Task04
                 // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
                 arr = Console.ReadLine().Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
-
 
                 // использовать синтаксис методов! SQL-подобные запросы не писать!
 
@@ -70,12 +69,10 @@ namespace Task04
             {
                 Console.WriteLine("InvalidOperationException");
             }
-
-
         }
     }
 
-    static class MyClass
+    public static class MyClass
     {
         public static int MyAggregate(int[] array)
         {
