@@ -54,6 +54,7 @@ namespace Task03
     {
         public static void Main()
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
             int N;
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
             try
