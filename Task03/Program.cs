@@ -50,9 +50,9 @@ using System.Linq;
  */
 namespace Task03
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             int N
             List<ComputerInfo> computerInfoList = new List<ComputerInfo>();
