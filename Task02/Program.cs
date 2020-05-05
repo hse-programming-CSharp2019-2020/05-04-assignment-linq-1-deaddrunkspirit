@@ -40,49 +40,51 @@ namespace Task02
         public static void RunTesk02()
         {
             int[] arr;
-            try
+            checked
             {
-                // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = Console.ReadLine().Split(new char[] { ' ' },
-                    StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
+                try
+                {
+                    // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
+                    arr = Console.ReadLine().Split(new char[] { ' ' },
+                        StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
-                var filteredCollection = arr.Select(x => x * x).TakeWhile(x => x != 0).ToArray();
+                    var filteredCollection = arr.Select(x => x * x).TakeWhile(x => x != 0).ToArray();
 
-                if (!filteredCollection.ToList().TrueForAll(x => x <= Math.Sqrt(int.MaxValue))) 
-                    throw new OverflowException();
+                    if (!filteredCollection.ToList().TrueForAll(x => x <= Math.Sqrt(int.MaxValue)))
+                        throw new OverflowException();
 
-                // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm = Enumerable.Average(filteredCollection);
-                // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm = filteredCollection.Average();
-                Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
+                    // использовать статическую форму вызова метода подсчета среднего
+                    double averageUsingStaticForm = Enumerable.Average(filteredCollection);
+                    // использовать объектную форму вызова метода подсчета среднего
+                    double averageUsingInstanceForm = filteredCollection.Average();
+                    Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
 
-                // вывести элементы коллекции в одну строку
-                Console.WriteLine(arr.Select(x => x.ToString()).TakeWhile(x => x != "0").Aggregate((x, y) =>  x + " " + y));
-                Console.ReadLine();
+                    // вывести элементы коллекции в одну строку
+                    Console.WriteLine(arr.Select(x => x.ToString()).TakeWhile(x => x != "0").Aggregate((x, y) => x + " " + y));
+                    Console.ReadLine();
 
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("ArgumentNullException");
+                }
+                catch (OutOfMemoryException)
+                {
+                    Console.WriteLine("OutOfMemoryException");
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("InvalidOperationException");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("OverflowException");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("FormatException");
+                }
             }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("ArgumentNullException");
-            }
-            catch (OutOfMemoryException)
-            {
-                Console.WriteLine("OutOfMemoryException");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("InvalidOperationException");
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("OverflowException");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("FormatException");
-            }
-
         }
 
     }

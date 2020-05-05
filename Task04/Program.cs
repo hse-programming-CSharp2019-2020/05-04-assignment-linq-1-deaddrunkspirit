@@ -41,33 +41,37 @@ namespace Task04
         public static void RunTesk04()
         {
             int[] arr;
-            try
+            checked
             {
-                // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
-                arr = Console.ReadLine().Split(new char[] { ' ' },
-                    StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
+                try
+                {
+                    // Попробуйте осуществить считывание целочисленного массива, записав это ОДНИМ ВЫРАЖЕНИЕМ.
+                    arr = Console.ReadLine().Split(new char[] { ' ' },
+                        StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
-                // использовать синтаксис методов! SQL-подобные запросы не писать!
+                    // использовать синтаксис методов! SQL-подобные запросы не писать!
 
-                int arrAggregate = 5 + arr.Select((num, index) => index % 2 == 0 ? num : -num)
-                                           .Aggregate(((num1, num2) => num1 + num2));
+                    int arrAggregate = 5 + arr
+                        .Select((num, index) => index % 2 == 0 ? num : -num)
+                        .Aggregate(((num1, num2) => num1 + num2));
 
-                int arrMyAggregate = MyClass.MyAggregate(arr);
+                    int arrMyAggregate = MyClass.MyAggregate(arr);
 
-                Console.WriteLine(arrAggregate);
-                Console.WriteLine(arrMyAggregate);
-            }
-            catch (OverflowException)
-            {
-                Console.WriteLine("OverflowException");
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("FormatException");
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("InvalidOperationException");
+                    Console.WriteLine(arrAggregate);
+                    Console.WriteLine(arrMyAggregate);
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("OverflowException");
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("FormatException");
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("InvalidOperationException");
+                }
             }
         }
     }
