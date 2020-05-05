@@ -59,12 +59,27 @@ namespace Task02
 
                 // вывести элементы коллекции в одну строку
                 Console.WriteLine(filteredCollection.Select(x => ((int)Math.Pow(x, 0.5)).ToString()).Aggregate((x, y) => x + " " + y));
-                Console.ReadLine();
 
             }
-            catch
+            catch (ArgumentNullException)
             {
-
+                Console.WriteLine("ArgumentNullException");
+            }
+            catch (OutOfMemoryException)
+            {
+                Console.WriteLine("OutOfMemoryException");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
             }
 
         }
