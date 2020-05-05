@@ -45,18 +45,21 @@ namespace Task02
                 arr = Console.ReadLine().Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
+                bool isZero = true;
 
-                var filteredCollection = arr.
+                var filteredCollection = arr.Select(x => Math.Pow(x, 2)).Where(x => { if (!isZero) return isZero; isZero = x != 0; return isZero; }).ToArray();
 
 
                 // использовать статическую форму вызова метода подсчета среднего
-                double averageUsingStaticForm =
+                double averageUsingStaticForm = Enumerable.Average(filteredCollection);
                 // использовать объектную форму вызова метода подсчета среднего
-                double averageUsingInstanceForm =
-
+                double averageUsingInstanceForm = filteredCollection.Average();
+                Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
 
                 // вывести элементы коллекции в одну строку
-                filteredCollection.
+                Console.WriteLine(filteredCollection.Select(x => ((int)Math.Pow(x, 0.5)).ToString()).Aggregate((x, y) => x + " " + y));
+                Console.ReadLine();
+
             }
             catch
             {
