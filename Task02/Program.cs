@@ -48,7 +48,7 @@ namespace Task02
 
                 bool isZero = true;
 
-                double[] filteredCollection = arr.Select(x => Math.Pow(x, 2)).Where(x => { if (!isZero) return isZero; isZero = x != 0; return isZero; }).ToArray();
+                var filteredCollection = arr.Select(x => Math.Pow(x, 2)).TakeWhile(x => x != 0).ToArray();
 
 
                 // использовать статическую форму вызова метода подсчета среднего
@@ -58,7 +58,7 @@ namespace Task02
                 Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
 
                 // вывести элементы коллекции в одну строку
-                Console.WriteLine(filteredCollection.Select(x => ((int)Math.Pow(x, 0.5)).ToString()).Aggregate((x, y) => x + " " + y));
+                Console.WriteLine(arr.Select(x => (x).ToString()).Aggregate((x, y) => x + " " + y).TakeWhile(x => x != 0));
 
             }
             catch (ArgumentNullException)
