@@ -50,21 +50,40 @@ namespace Task04
 
                 // использовать синтаксис методов! SQL-подобные запросы не писать!
 
-                int arrAggregate = 5 + arr.Aggregate((x, y, z) => x - y + z)
+                int arrAggregate = 5 + arr.Select((num, index) => index % 2 == 0 ? num : -num)
+                                           .Aggregate(((num1, num2) => num1 + num2));
 
                 int arrMyAggregate = MyClass.MyAggregate(arr);
 
                 Console.WriteLine(arrAggregate);
                 Console.WriteLine(arrMyAggregate);
             }
-           
+            catch (OverflowException)
+            {
+                Console.WriteLine("OverflowException");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("FormatException");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("InvalidOperationException");
+            }
+
+
         }
     }
 
     static class MyClass
     {
-        public static int MyAggregate()
+        public static int MyAggregate(int[] array)
         {
+            int result = 5;
+            for (int i = 0; i < array.Length; i++)
+                result = i % 2 == 0 ? result + array[i] : result - array[i];
+
+            return result;
         }
     }
 }
