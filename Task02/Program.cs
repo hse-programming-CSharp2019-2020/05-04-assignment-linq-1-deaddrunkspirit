@@ -58,7 +58,7 @@ namespace Task02
                 Console.WriteLine($"{averageUsingInstanceForm:f3}\n{averageUsingStaticForm:f3}");
 
                 // вывести элементы коллекции в одну строку
-                Console.WriteLine(arr.Select(x => (x).ToString()).Aggregate((x, y) => x + " " + y).TakeWhile(x => x != 0));
+                arr.Select(x => (x).ToString()).Aggregate((x, y) => { Console.Write($"{x} {y}"); return x + " " + y; }).TakeWhile(x => x != 0);
 
             }
             catch (ArgumentNullException)
