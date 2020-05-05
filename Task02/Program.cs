@@ -46,8 +46,10 @@ namespace Task02
                 arr = Console.ReadLine().Split(new char[] { ' ' },
                     StringSplitOptions.RemoveEmptyEntries).Select(x => int.Parse(x)).ToArray();
 
-                var filteredCollection = arr.Select(x => Math.Pow(x, 2)).TakeWhile(x => x != 0).ToArray();
+                var filteredCollection = arr.Select(x => x * x).TakeWhile(x => x != 0).ToArray();
 
+                if (!filteredCollection.ToList().TrueForAll(x => x <= Math.Sqrt(int.MaxValue))) 
+                    throw new OverflowException();
 
                 // использовать статическую форму вызова метода подсчета среднего
                 double averageUsingStaticForm = Enumerable.Average(filteredCollection);
